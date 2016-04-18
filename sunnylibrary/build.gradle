@@ -3,9 +3,9 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = "com.ikkong"
-version = "1.0.1"
+version = "1.0.2"
 def siteUrl = 'https://github.com/ikkong'                        // #CONFIG# // project homepage
-def gitUrl = 'https://github.com/ikkong/Android-SunnyLib.git'                     // #CONFIG# // project git
+def gitUrl = 'https://github.com/ikkong/SunnyAndroidLib.git'                     // #CONFIG# // project git
 
 android {
     compileSdkVersion 23
@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.2"
     }
     buildTypes {
         release {
@@ -89,7 +89,7 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     pkg {
         repo = 'maven'
-        name = 'sunnyLib'
+        name = 'sunnyAndroidLib'
         publish = true
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
