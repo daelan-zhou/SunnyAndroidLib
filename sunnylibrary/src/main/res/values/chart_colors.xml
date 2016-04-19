@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="chart_color_01">#389BD2</color>
+    <color name="chart_color_02">#FF7322</color>
+    <color name="chart_color_03">#A7A39E</color>
+    <color name="chart_color_04">#FFBE00</color>
+    <color name="chart_color_05">#58AD4B</color>
+    <color name="chart_color_06">#B04400</color>
+    <color name="chart_color_07">#63625D</color>
+    <color name="chart_color_08">#A46E00</color>
+    <color name="chart_color_09">#12446D</color>
+    <color name="chart_color_10">#366731</color>
+    <color name="chart_color_11">#66AFDB</color>
+    <color name="chart_color_12">#FF8F4E</color>
+    <color name="chart_color_13">#BBB7B0</color>
+    <color name="chart_color_14">#FFCB30</color>
+    <color name="chart_color_15">#4C84C8</color>
+    <color name="chart_color_16">#74BF61</color>
+    <color name="chart_color_17">#E85700</color>
+    <color name="chart_color_18">#215A99</color>
+    <color name="chart_color_19">#488841</color>
+    <color name="chart_color_20">#8FC5E4</color>
+</resources>

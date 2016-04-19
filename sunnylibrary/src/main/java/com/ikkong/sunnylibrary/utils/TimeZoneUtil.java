@@ -6,9 +6,6 @@ import java.util.TimeZone;
 /**
  * 不同时区对应的时间处理工具类
  * 
- * @author HuangWenwei
- * 
- * @date 2014年7月31日
  */
 public class TimeZoneUtil {
 
@@ -28,9 +25,6 @@ public class TimeZoneUtil {
 
 	/**
 	 * 根据不同时区，转换时间 2014年7月31日
-	 * 
-	 * @param 
-	 * @return
 	 */
 	public static Date transformTime(Date date, TimeZone oldZone,
 			TimeZone newZone) {

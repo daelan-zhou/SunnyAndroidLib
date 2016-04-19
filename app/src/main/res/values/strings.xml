@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SunnyLibApp</string>
+    
+    <string name="md_ptr_recyle">包含recyclerView的Meterial风格下拉刷新</string>
 </resources>
