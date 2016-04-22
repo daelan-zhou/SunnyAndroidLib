@@ -101,7 +101,7 @@ bintray {
     key = properties.getProperty("bintray.apikey")
     pkg {
         repo = 'maven'
-        name = 'sunnyAndroidLib'
+        name = 'sunnyLib'
         publish = true
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl

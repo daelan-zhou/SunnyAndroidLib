@@ -24,6 +24,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile project(':sunnylibrary')
+    //compile 'com.ikkong:sunnylibrary:1.0.5'
     compile 'com.kymjs.rxvolley:okhttp:1.0.9'
     compile 'com.kymjs.rxvolley:rxvolley:1.0.9'
     compile 'com.google.code.gson:gson:2.6.2'
