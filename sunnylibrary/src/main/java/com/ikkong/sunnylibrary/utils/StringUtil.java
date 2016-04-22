@@ -122,6 +122,20 @@ public class StringUtil {
     }
 
     /**
+     * 对象转整数
+     *
+     * @param obj
+     * @return 转换异常返回 0
+     */
+    public static long toLong(String obj,long defaultVal) {
+        try {
+            return Long.parseLong(obj);
+        } catch (Exception e) {
+        }
+        return defaultVal;
+    }
+
+    /**
      * 字符串转布尔值
      *
      * @param b

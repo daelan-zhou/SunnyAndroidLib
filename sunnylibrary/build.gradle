@@ -3,7 +3,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = "com.ikkong"
-version = "1.0.3"
+version = "1.0.5"
 def siteUrl = 'https://github.com/ikkong'                        // #CONFIG# // project homepage
 def gitUrl = 'https://github.com/ikkong/SunnyAndroidLib.git'                     // #CONFIG# // project git
 
@@ -12,10 +12,10 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 12
         targetSdkVersion 23
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.5"
     }
     buildTypes {
         release {
@@ -28,8 +28,19 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:recyclerview-v7:23.2.0'
+    compile 'com.android.support:cardview-v7:23.2.0'
     compile 'com.android.support:appcompat-v7:23.2.1'
+    //通用下拉刷新
     compile 'in.srain.cube:ultra-ptr:1.0.11'
+    //gif图片显示
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.10'
+    //程序崩溃界面，需要在application 初始化 
+    compile 'cat.ereza:customactivityoncrash:1.5.0'
+    //MVP框架
+    compile 'com.kymjs.frame:framework:1.0.5'
+    //系统栏透明
+    //compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 }
 
 install {

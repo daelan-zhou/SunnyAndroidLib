@@ -1,146 +1,146 @@
 package com.ikkong.sunnylibapp;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.ikkong.sunnylibapp.adapter.ImageDataAdapter;
-import com.ikkong.sunnylibapp.entity.ImageData;
-import com.ikkong.sunnylibrary.widget.EmptyLayout;
+import com.ikkong.sunnylibapp.delegate.MainDelegate;
+import com.ikkong.sunnylibapp.fragment.HotwxListFragment;
+import com.ikkong.sunnylibrary.base.BaseFrameActivity;
+import com.ikkong.sunnylibrary.base.BaseMainFragment;
+import com.ikkong.sunnylibrary.model.Event;
+import com.kymjs.rxvolley.rx.RxBus;
 
-import org.kymjs.kjframe.KJActivity;
-import org.kymjs.kjframe.KJHttp;
-import org.kymjs.kjframe.http.HttpCallBack;
-import org.kymjs.kjframe.http.HttpConfig;
-import org.kymjs.kjframe.http.HttpParams;
-import org.kymjs.kjframe.ui.BindView;
-import org.kymjs.kjframe.ui.ViewInject;
-import org.kymjs.kjframe.utils.DensityUtils;
-
-import java.util.ArrayList;
-
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
-import in.srain.cube.views.ptr.header.MaterialHeader;
+import rx.Subscription;
+import rx.functions.Action1;
 
 
-public class MainActivity extends KJActivity {
+public class MainActivity extends BaseFrameActivity<MainDelegate> {
 
-    @BindView(id = R.id.empty_layout, click = true)
-    private EmptyLayout mEmptyLayout;
-    @BindView(id = R.id.list_view)
-    private ListView mListView;
-    @BindView(id = R.id.ptr_layout)
-    private PtrClassicFrameLayout ptrLayout;
-    private HttpConfig config;
-    private KJHttp kjh;
-    private HttpParams params;
+    public static final String MENU_CLICK_EVEN = "slid_menu_click_event";
 
-    private int pageCount = 1, pageIndex;
-    private ImageDataAdapter adapter;
-    private ArrayList<ImageData.DataEntity.ListEntity> list = new ArrayList<>();
+    private BaseMainFragment currentFragment; //当前内容所显示的Fragment
+    private BaseMainFragment content1 = new HotwxListFragment();
+//    private BaseMainFragment content2 = new XituFragment();
+//    private BaseMainFragment content3 = new TopListFragment();
 
-    private String url = "http://cube-server.liaohuqiu.net/api_demo/image-list.php";
+    private Subscription rxBusSubscript;
+
+    private boolean isOnKeyBacking;
+    private Handler mMainLoopHandler = new Handler(Looper.getMainLooper());
+    private Runnable onBackTimeRunnable = new Runnable() {
+        @Override
+        public void run() {
+            isOnKeyBacking = false;
+            viewDelegate.cancleExit();
+        }
+    };
+
 
     @Override
-    public void setRootView() {
-        setContentView(R.layout.meterial_ptr_listview);
+    protected Class<MainDelegate> getDelegateClass() {
+        return MainDelegate.class;
     }
 
     @Override
-    public void initWidget() {
-        super.initWidget();
-        mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ptrLayout.autoRefresh();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (viewDelegate.menuIsOpen()) {
+                viewDelegate.changeMenuState();
+            } else if (isOnKeyBacking) {
+                mMainLoopHandler.removeCallbacks(onBackTimeRunnable);
+                isOnKeyBacking = false;
+                finish();
+            } else {
+                isOnKeyBacking = true;
+                viewDelegate.showExitTip();
+                mMainLoopHandler.postDelayed(onBackTimeRunnable, 2000);
             }
-        });
-        mListView.setDivider(new ColorDrawable(Color.argb(0, 0, 0, 0)));
-        mListView.setSelector(new ColorDrawable(Color.argb(0, 0, 0, 0)));
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ViewInject.toast("click position " + position);
-            }
-        });
-        // header
-        final MaterialHeader header = new MaterialHeader(this);
-        int[] colors = getResources().getIntArray(R.array.google_colors);
-        header.setColorSchemeColors(colors);
-        header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
-        header.setPadding(0, DensityUtils.dip2px(this,15), 0, DensityUtils.dip2px(this,10));
-        header.setPtrFrameLayout(ptrLayout);
-
-        ptrLayout.setLoadingMinTime(1000);
-        ptrLayout.setDurationToCloseHeader(1500);
-        ptrLayout.setHeaderView(header);
-        ptrLayout.addPtrUIHandler(header);
-        ptrLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ptrLayout.autoRefresh(false);
-            }
-        }, 100);
-        ptrLayout.setDurationToClose(100);
-        ptrLayout.setPinContent(true);
-        
-        ptrLayout.setPtrHandler(new PtrHandler() {
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
-            }
-
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                updateData();
-            }
-        });
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 
-    public void updateData() {
-        config = new HttpConfig();
-        kjh = new KJHttp(config);
-        params = new HttpParams();
-        kjh.get(url, params, false, new HttpCallBack() {
-            @Override
-            public void onSuccess(String t) {
-                super.onSuccess(t);
-                ImageData data = ImageData.objectFromData(t);
-                if (data != null) {
-                    list.clear();
-                    list.addAll(data.getData().getList());
-                    if (adapter == null) {
-                        adapter = new ImageDataAdapter(mListView, list);
-                        mListView.setAdapter(adapter);
-                    } else {
-                        adapter.refresh(list);
+    /**
+     * 用Fragment替换内容区
+     *
+     * @param targetFragment 用来替换的Fragment
+     */
+    public void changeFragment(BaseMainFragment targetFragment) {
+        if (targetFragment.equals(currentFragment)) {
+            return;
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (!targetFragment.isAdded()) {
+            transaction.add(R.id.main_content, targetFragment, targetFragment.getClass()
+                    .getName());
+        }
+        if (targetFragment.isHidden()) {
+            transaction.show(targetFragment);
+            targetFragment.onChange();
+        }
+        if (currentFragment != null && currentFragment.isVisible()) {
+            transaction.hide(currentFragment);
+        }
+        currentFragment = targetFragment;
+        transaction.commit();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_content, content1, content1.getClass().getName())
+                .commit();
+
+        rxBusSubscript = RxBus.getDefault().take(Event.class)
+                .subscribe(new Action1<Event>() {
+                    @Override
+                    public void call(Event event) {
+                        changeContent(event);
                     }
-                    mEmptyLayout.dismiss();
-                } else {
-                    mEmptyLayout.setErrorType(EmptyLayout.NODATA);
-                }
-            }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                    }
+                });
+    }
 
-            @Override
-            public void onFailure(int errorNo, String strMsg) {
-                super.onFailure(errorNo, strMsg);
-                if (adapter != null && adapter.getCount() > 0) {
-                    return;
-                } else {
-                    mEmptyLayout.setErrorType(EmptyLayout.NODATA);
-                }
-            }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (rxBusSubscript != null && rxBusSubscript.isUnsubscribed())
+            rxBusSubscript.unsubscribe();
+    }
 
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                ptrLayout.refreshComplete();
-            }
-        });
+    /**
+     * 根据MainSlidMenu点击选择不同的响应
+     *
+     * @param event
+     */
+    private void changeContent(Event event) {
+        if (!MENU_CLICK_EVEN.equals(event.getAction())) return;
+        View view = event.getObject();
+        switch (view.getId()) {
+            case R.id.menu_item_tag1:
+                changeFragment(content1);
+                break;
+//            case R.id.menu_item_tag2:
+//                changeFragment(content2);
+//                break;
+//            case R.id.menu_item_tag3:
+//                changeFragment(content3);
+//                break;
+//            case R.id.menu_item_tag4:
+//                BlogDetailActivity.goinActivity(this, Api.OSL, null);
+//                break;
+            default:
+                break;
+        }
+        viewDelegate.changeMenuState();
     }
 }

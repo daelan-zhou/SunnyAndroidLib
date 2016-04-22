@@ -3,7 +3,7 @@
     android:id="@+id/pageerrLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#EBEBEB" >
+    android:background="#ffffff" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -13,31 +13,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" >
-
-                <ImageView
-                    android:id="@+id/img_error_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@null"
-                    android:background="@drawable/pagefailed_bg"
-                    android:visibility="gone" />
-
-                <ProgressBar
-                    android:id="@+id/animProgress"
-                    android:visibility="gone"
-                    android:indeterminate="true"
-                    android:indeterminateDuration="1000"
-                    android:indeterminateOnly="true"
-                    android:indeterminateDrawable="@drawable/progressloading"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip" />
-            </RelativeLayout>
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/img_error_layout"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@null"
+                android:src="@drawable/page_icon_empty" />
 
             <TextView
                 android:id="@+id/tv_error_layout"
@@ -47,8 +31,8 @@
                 android:layout_marginTop="10.0dip"
                 android:gravity="center"
                 android:lines="2"
-                android:textColor="#9A9A9A"
-                android:textSize="16sp" />
+                android:textColor="@color/main_gray"
+                android:textSize="17sp" />
         </LinearLayout>
     </RelativeLayout>
 

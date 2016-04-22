@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="base_colorPrimary">#34b0e9</color>
+    <color name="base_colorPrimaryDark">#303F9F</color>
+    <color name="base_colorAccent">#FF4081</color>
+    
     <color name="main_color">#0D78C2</color>
     <color name="titlebar_bg_color">#0D78C2</color>
     <color name="colorAccent">#FF4081</color>
@@ -32,5 +37,6 @@
     <color name="blue">#FF375BF1</color>
     <color name="yellow">#FFF7D23E</color>
     <color name="green">#FF34A350</color>
+    <color name="transparent">#00000000</color>
     
 </resources>

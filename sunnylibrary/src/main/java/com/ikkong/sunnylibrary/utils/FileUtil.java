@@ -97,4 +97,26 @@ public class FileUtil {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new java.util.Date());
         return mediaStorageDir.getPath() + File.separator + timeStamp + ".apk";
     }
+
+    /**
+     * 获取SD卡路径
+     * @return SD卡路径
+     */
+    public static String getSDCardPath() {
+        return Environment.getExternalStorageDirectory().getAbsolutePath();
+    }
+
+    /***
+     * 获取文件夹大小
+     ***/
+    public static long getFileSize(File f) {
+        long size = 0L;
+        if (f != null && f.exists()) {
+            File flist[] = f.listFiles();
+            for (File aFlist : flist) {
+                size += aFlist.isDirectory() ? getFileSize(aFlist) : aFlist.length();
+            }
+        }
+        return size;
+    }
 }

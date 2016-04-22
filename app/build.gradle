@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.ikkong.sunnylibapp"
-        minSdkVersion 11
+        minSdkVersion 12
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -24,6 +24,14 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile project(':sunnylibrary')
-    compile 'org.kymjs.kjframe:kjframe:2.6'
+    compile 'com.kymjs.rxvolley:okhttp:1.0.9'
+    compile 'com.kymjs.rxvolley:rxvolley:1.0.9'
     compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.4'
+
+    //cube-sdk
+    //compile 'in.srain.cube:cube-sdk:1.0.44@aar'
+    //compile 'in.srain.cube:clog:1.0.2'
+
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }

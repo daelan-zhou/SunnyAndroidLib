@@ -16,15 +16,19 @@
 package com.ikkong.sunnylibrary.widget;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ikkong.sunnylibrary.R;
+
+import java.io.File;
+
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 
 public class EmptyLayout extends LinearLayout implements
         View.OnClickListener {
@@ -33,6 +37,7 @@ public class EmptyLayout extends LinearLayout implements
     public static final int NETWORK_LOADING = 2; // 加载中
     public static final int NODATA = 3; // 没有数据
     public static final int HIDE_LAYOUT = 4; // 隐藏
+    public static final String LOADING_IMAGE_FOLDER_NAME = "loading_gif";
     private int mErrorState = NETWORK_LOADING;
 
     private OnClickListener listener;
@@ -40,8 +45,8 @@ public class EmptyLayout extends LinearLayout implements
     private String strNoDataContent = "";
 
     private TextView tv;
-    public ImageView img;
-    private ProgressBar animProgress;
+    public GifImageView img;
+    private GifDrawable loadingDrawable;
 
     public EmptyLayout(Context context) {
         super(context);
@@ -56,14 +61,16 @@ public class EmptyLayout extends LinearLayout implements
     private void init() {
         View view = View
                 .inflate(getContext(), R.layout.view_error_layout, null);
-        img = (ImageView) view.findViewById(R.id.img_error_layout);
+        img = (GifImageView) view.findViewById(R.id.img_error_layout);
         tv = (TextView) view.findViewById(R.id.tv_error_layout);
-        animProgress = (ProgressBar) view.findViewById(R.id.animProgress);
 
         setBackgroundColor(-1);
         setOnClickListener(this);
-//        setErrorType(NETWORK_LOADING);
-
+        if (getVisibility() == View.GONE) {
+            setErrorType(HIDE_LAYOUT);
+        } else {
+            setErrorType(NETWORK_LOADING);
+        }
         img.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,23 +140,28 @@ public class EmptyLayout extends LinearLayout implements
         case NETWORK_ERROR:
             mErrorState = NETWORK_ERROR;
             tv.setText("没有网络~");
-            img.setBackgroundResource(R.drawable.page_icon_network);
+            img.setImageResource(R.drawable.page_icon_network);
             img.setVisibility(View.VISIBLE);
-            animProgress.setVisibility(View.GONE);
             clickEnable = true;
             break;
         case NETWORK_LOADING:
             mErrorState = NETWORK_LOADING;
-            animProgress.setVisibility(View.VISIBLE);
-            img.setVisibility(View.GONE);
+            try {
+                AssetManager assetManager = getResources().getAssets();
+                String[] loadingList = assetManager.list(LOADING_IMAGE_FOLDER_NAME);
+                String imageName = loadingList[((int) (loadingList.length * Math.random()))];
+                String absoluteImageName = LOADING_IMAGE_FOLDER_NAME + File.separator + imageName;
+                loadingDrawable = new GifDrawable(assetManager, absoluteImageName);
+                img.setImageDrawable(loadingDrawable);
+            } catch (Exception e) {
+            }
             tv.setText("加载中…");
             clickEnable = false;
             break;
         case NODATA:
             mErrorState = NODATA;
-            img.setBackgroundResource(R.drawable.page_icon_empty);
+            img.setImageResource(R.drawable.page_icon_empty);
             img.setVisibility(View.VISIBLE);
-            animProgress.setVisibility(View.GONE);
             setTvNoDataContent();
             clickEnable = true;
             break;

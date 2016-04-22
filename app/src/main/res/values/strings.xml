@@ -2,4 +2,6 @@
     <string name="app_name">SunnyLibApp</string>
     
     <string name="md_ptr_recyle">包含recyclerView的Meterial风格下拉刷新</string>
+    <string name="double_click_exit">再次点击，退出程序</string>
+    <string name="menu_item_text1">xxxx</string>
 </resources>
