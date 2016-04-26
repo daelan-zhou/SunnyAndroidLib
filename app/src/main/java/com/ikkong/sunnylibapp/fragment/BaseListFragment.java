@@ -1,5 +1,6 @@
 package com.ikkong.sunnylibapp.fragment;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,18 +24,59 @@ import in.srain.cube.views.ptr.PtrHandler;
 
 /**
  * 下拉列表界面基类
+ *  实现懒加载 2016/4/25
  */
 public abstract class BaseListFragment<T> extends BaseMainFragment<PullListDelegate> implements
         PtrHandler, IRequestVo, BaseRecyclerAdapter.OnItemClickListener {
-
+    private final String TAG = getClass().getSimpleName();
     protected BasePullUpRecyclerAdapter<T> adapter;
     protected RecyclerView recyclerView;
     protected ArrayList<T> datas = new ArrayList<>();
-    protected int pageIndex=1,pageCount,pageSize = 5;
+    protected int pageIndex=1,//第几页
+            pageCount,  //总页数
+            pageSize = 5;//每页数量
+
+    private boolean isPrepared;//懒加载 判断是否初始化完成
+    private boolean isFirstVisible = true;//首次可见
 
     protected abstract BasePullUpRecyclerAdapter<T> getAdapter();
 
     protected abstract ArrayList<T> parserInAsync(byte[] t);
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initPrepare();
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (isFirstVisible) {
+                isFirstVisible = false;
+                initPrepare();
+            } else {
+                onVisible();
+            }
+        }
+    }
+    private synchronized void initPrepare() {
+        if (isPrepared) {
+            onFirstUserVisible();
+        } else {
+            isPrepared = true;
+        }
+    }
+    /**
+     * 当 fragment 首次可见, 懒加载数据
+     */
+    protected void onFirstUserVisible(){viewDelegate.lazyLoad();}
+    protected void onVisible(){}
+
+    @Override
+    public void onShow() {
+        setUserVisibleHint(true);
+    }
 
     protected HttpCallback callBack = new HttpCallback() {
         private ArrayList<T> tempDatas;
@@ -52,7 +94,6 @@ public abstract class BaseListFragment<T> extends BaseMainFragment<PullListDeleg
         @Override
         public void onSuccess(String t) {
             super.onSuccess(t);
-//            Loger.debug("===列表网络请求:" + t);
             if (viewDelegate != null && viewDelegate.mEmptyLayout != null) {
                 if (tempDatas == null || tempDatas.isEmpty() || adapter == null || adapter
                         .getItemCount() < 1) {
@@ -62,7 +103,6 @@ public abstract class BaseListFragment<T> extends BaseMainFragment<PullListDeleg
                     datas.addAll(tempDatas);
                     adapter.refresh(datas);
                     adapter.setState(BasePullUpRecyclerAdapter.STATE_INVISIBLE);
-//                    datas = tempDatas;
                 }
             }
         }
@@ -103,7 +143,7 @@ public abstract class BaseListFragment<T> extends BaseMainFragment<PullListDeleg
         bindEven();
         viewDelegate.setRefreshHandler(this);
         adapter.setOnItemClickListener(this);
-        doRequest();
+//        doRequest();//使用懒加载，此处就不请求数据了
     }
 
     private void bindEven() {
@@ -126,9 +166,6 @@ public abstract class BaseListFragment<T> extends BaseMainFragment<PullListDeleg
                     int visibleItemCount = layoutManager.getChildCount();
                     int totalItemCount = layoutManager.getItemCount();
                     int pastItems = layoutManager.findFirstVisibleItemPosition();
-//                    Loger.debug("===onScrollStateChanged===visibleItemCount"+visibleItemCount
-//                            +"====totalItemCount==="+totalItemCount
-//                            +"====pastItems==="+pastItems);
                     if ((pastItems + visibleItemCount) >= totalItemCount) {
                         onBottom();
                     }
@@ -144,7 +181,6 @@ public abstract class BaseListFragment<T> extends BaseMainFragment<PullListDeleg
     }
 
     public void onBottom() {
-        Loger.debug("======abs Main=onBottom=======");
         adapter.setState(BasePullUpRecyclerAdapter.STATE_NO_MORE);
     }
 

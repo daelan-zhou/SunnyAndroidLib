@@ -66,11 +66,11 @@ public class EmptyLayout extends LinearLayout implements
 
         setBackgroundColor(-1);
         setOnClickListener(this);
-        if (getVisibility() == View.GONE) {
+//        if (getVisibility() == View.GONE) {
             setErrorType(HIDE_LAYOUT);
-        } else {
-            setErrorType(NETWORK_LOADING);
-        }
+//        } else {
+//            setErrorType(NETWORK_LOADING);
+//        }
         img.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

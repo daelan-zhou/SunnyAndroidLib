@@ -7,19 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
-import android.view.animation.Animation;
-import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.ikkong.sunnylibapp.R;
-import com.ikkong.sunnylibrary.utils.KJAnimations;
-import com.kymjs.frame.view.AppDelegate;
+import com.ikkong.sunnylibrary.base.delegate.BaseDelegate;
 
 
-/**
- * @author kymjs (http://www.kymjs.com/) on 11/6/15.
- */
-public class MainDelegate extends AppDelegate {
+public class MainDelegate extends BaseDelegate {
 
     DrawerLayout mDrawerLayout;
     Toolbar mToolbar;
@@ -90,39 +84,5 @@ public class MainDelegate extends AppDelegate {
             mDrawerLayout.openDrawer(Gravity.LEFT);
         }
         return !isOpen;
-    }
-
-    /**
-     * 显示Toolbar的退出tip
-     */
-    public void showExitTip() {
-        TextView view = get(R.id.titlebar_text_exittip);
-        view.setVisibility(View.VISIBLE);
-        Animation a = KJAnimations.getTranslateAnimation(0f, 0f, -mToolbar.getHeight(), 0f, 300);
-        view.startAnimation(a);
-    }
-
-
-    /**
-     * 取消退出
-     */
-    public void cancleExit() {
-        final TextView view = get(R.id.titlebar_text_exittip);
-        Animation a = KJAnimations.getTranslateAnimation(0f, 0f, 0f, -mToolbar.getHeight(), 300);
-        a.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                view.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-        view.startAnimation(a);
     }
 }

@@ -8,7 +8,6 @@ import java.util.LinkedList;
 
 /**
  * 全局常量配置器
- * Created by kymjs on 3/2/16.
  */
 public class AppConfig {
     public static final String DEF_AVATAR = "http://7xjria.com5.z0.glb.clouddn.com/default162813_JnM6_1767531.png";

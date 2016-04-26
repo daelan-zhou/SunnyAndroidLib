@@ -7,9 +7,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sunny on 2015-11-06.
- */
 public class ResponseHotwxListEntity {
 
     private String reason;

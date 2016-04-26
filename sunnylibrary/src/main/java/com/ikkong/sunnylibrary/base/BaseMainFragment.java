@@ -10,6 +10,6 @@ import com.kymjs.frame.view.IDelegate;
  */
 public abstract class BaseMainFragment<T extends IDelegate> extends FragmentPresenter<T> {
 
-    public void onChange() {
+    public void onShow() {
     }
 }

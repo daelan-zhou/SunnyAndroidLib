@@ -1,13 +1,10 @@
 package com.ikkong.sunnylibapp.delegate;
 
 import com.ikkong.sunnylibapp.R;
-import com.kymjs.frame.view.AppDelegate;
+import com.ikkong.sunnylibrary.base.delegate.BaseDelegate;
 
 
-/**
- * @author kymjs (http://www.kymjs.com/) on 11/27/15.
- */
-public class MainSlidMenuDelegate extends AppDelegate {
+public class MainSlidMenuDelegate extends BaseDelegate {
     @Override
     public int getRootLayoutId() {
         return R.layout.delegate_slidmenu;

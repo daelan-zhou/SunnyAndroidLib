@@ -3,7 +3,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = "com.ikkong"
-version = "1.0.5"
+version = "1.0.6"
 def siteUrl = 'https://github.com/ikkong'                        // #CONFIG# // project homepage
 def gitUrl = 'https://github.com/ikkong/SunnyAndroidLib.git'                     // #CONFIG# // project git
 
@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion 12
         targetSdkVersion 23
-        versionCode 5
-        versionName "1.0.5"
+        versionCode 6
+        versionName "1.0.6"
     }
     buildTypes {
         release {
@@ -28,6 +28,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:23.2.0'
     compile 'com.android.support:recyclerview-v7:23.2.0'
     compile 'com.android.support:cardview-v7:23.2.0'
     compile 'com.android.support:appcompat-v7:23.2.1'

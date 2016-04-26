@@ -8,7 +8,6 @@ import android.widget.FrameLayout;
 
 import com.ikkong.sunnylibrary.R;
 import com.ikkong.sunnylibrary.utils.DensityUtils;
-import com.kymjs.frame.view.AppDelegate;
 
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -18,10 +17,10 @@ import in.srain.cube.views.ptr.header.MaterialHeader;
  * 列表基类视图
  *
  */
-public class BaseListDelegate extends AppDelegate {
+public class BaseListDelegate extends BaseDelegate {
 
     protected RecyclerView mRecyclerView;
-    protected PtrClassicFrameLayout ptrLayout;
+    public PtrClassicFrameLayout ptrLayout;
 
     @Override
     public int getRootLayoutId() {
@@ -44,12 +43,7 @@ public class BaseListDelegate extends AppDelegate {
         ptrLayout.setDurationToCloseHeader(1500);
         ptrLayout.setHeaderView(header);
         ptrLayout.addPtrUIHandler(header);
-        ptrLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ptrLayout.autoRefresh(false);
-            }
-        }, 100);
+
         ptrLayout.setDurationToClose(100);
         ptrLayout.setPinContent(true);
 
@@ -76,6 +70,15 @@ public class BaseListDelegate extends AppDelegate {
 
     public LinearLayoutManager getLayoutManager() {
         return (LinearLayoutManager) mRecyclerView.getLayoutManager();
+    }
+    
+    public void lazyLoad(){
+        ptrLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ptrLayout.autoRefresh(false);
+            }
+        }, 200);
     }
 
 }
