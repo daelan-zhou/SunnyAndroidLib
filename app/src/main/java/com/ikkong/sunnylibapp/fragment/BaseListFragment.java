@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 
 import com.ikkong.sunnylibapp.R;
 import com.ikkong.sunnylibapp.delegate.PullListDelegate;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
 
 
 /**
@@ -34,7 +36,7 @@ public abstract class BaseListFragment<T> extends BaseMainFragment<PullListDeleg
     protected ArrayList<T> datas = new ArrayList<>();
     protected int pageIndex=1,//第几页
             pageCount,  //总页数
-            pageSize = 5;//每页数量
+            pageSize = 20;//每页数量
 
     private boolean isPrepared;//懒加载 判断是否初始化完成
     private boolean isFirstVisible = true;//首次可见
@@ -177,7 +179,11 @@ public abstract class BaseListFragment<T> extends BaseMainFragment<PullListDeleg
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        recyclerView.setAdapter(adapter);
+        SlideInBottomAnimationAdapter mAdapter = new SlideInBottomAnimationAdapter(adapter);
+        mAdapter.setFirstOnly(true);
+        mAdapter.setDuration(500);
+        mAdapter.setInterpolator(new OvershootInterpolator(.5f));
+        recyclerView.setAdapter(mAdapter);
     }
 
     public void onBottom() {

@@ -51,9 +51,9 @@ public class UnixTime
 		return   new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
 	}
-	public static String getImgNameTime()
+	public static String getStrCurrentTime()
 	{
-		return   new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		return   new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
 
 	}
 

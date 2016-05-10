@@ -2,10 +2,12 @@ package com.ikkong.sunnylibrary.utils;
 
 import android.net.Uri;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Random;
 
 /**
  * Created by sunny on 2015-10-19.
@@ -118,5 +120,13 @@ public class FileUtil {
             }
         }
         return size;
+    }
+
+    /**
+     * 生成时间 201604271613410 + 随机数 的文件名
+     * @return
+     */
+    public static String buildFileName(){
+        return TextUtils.concat(UnixTime.getStrCurrentTime(),new Random().nextInt(1000)+"").toString();
     }
 }
