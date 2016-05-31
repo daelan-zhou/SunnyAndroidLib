@@ -5,4 +5,5 @@
     <string name="double_click_exit">再次点击，退出程序</string>
     <string name="menu_item_text1">微信精选</string>
     <string name="menu_item_text2">轻松一刻</string>
+    <string name="menu_item_text3">图片预览</string>
 </resources>

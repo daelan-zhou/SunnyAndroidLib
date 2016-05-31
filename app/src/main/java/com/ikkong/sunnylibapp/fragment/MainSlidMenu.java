@@ -28,8 +28,8 @@ public class MainSlidMenu extends FragmentPresenter<MainSlidMenuDelegate> implem
         super.bindEvenListener();
         viewDelegate.setOnClickListener(this,
                 R.id.menu_item_tag1,
-                R.id.menu_item_tag2
-//                R.id.menu_item_tag3,
+                R.id.menu_item_tag2,
+                R.id.menu_item_tag3
 //                R.id.menu_item_tag4,
                 );
     }
