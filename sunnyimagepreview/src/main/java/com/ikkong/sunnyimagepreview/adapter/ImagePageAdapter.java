@@ -7,10 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ikkong.sunnyimagepreview.Utils;
-import com.ikkong.sunnyimagepreview.bean.ImageItem;
 import com.ikkong.sunnyimagepreview.loader.GlideImageLoader;
-
-import java.util.ArrayList;
 
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -22,21 +19,21 @@ public class ImagePageAdapter extends PagerAdapter {
 
     private int screenWidth;
     private int screenHeight;
-    private ArrayList<ImageItem> images = new ArrayList<>();
+    private String[] imgUrls;
     private Activity mActivity;
     public PhotoViewClickListener listener;
 
-    public ImagePageAdapter(Activity activity, ArrayList<ImageItem> images) {
+    public ImagePageAdapter(Activity activity, String[] imgUrls) {
         this.mActivity = activity;
-        this.images = images;
+        this.imgUrls = imgUrls;
 
         DisplayMetrics dm = Utils.getScreenPix(activity);
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels;
     }
 
-    public void setData(ArrayList<ImageItem> images) {
-        this.images = images;
+    public void setData(String[] imgUrls) {
+        this.imgUrls = imgUrls;
     }
 
     public void setPhotoViewClickListener(PhotoViewClickListener listener) {
@@ -46,8 +43,7 @@ public class ImagePageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         PhotoView photoView = new PhotoView(mActivity);
-        ImageItem imageItem = images.get(position);
-        GlideImageLoader.getInstance().displayImage(mActivity, imageItem.url, photoView, screenWidth, screenHeight);
+        GlideImageLoader.getInstance().displayImage(mActivity, imgUrls[position], photoView, screenWidth, screenHeight);
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float x, float y) {
@@ -60,7 +56,7 @@ public class ImagePageAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return images.size();
+        return imgUrls.length;
     }
 
     @Override

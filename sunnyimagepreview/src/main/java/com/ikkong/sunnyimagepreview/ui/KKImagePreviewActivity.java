@@ -1,5 +1,7 @@
 package com.ikkong.sunnyimagepreview.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -11,14 +13,14 @@ import com.ikkong.sunnyimagepreview.R;
 
 /**
  * ================================================
- * 作    者：jeasonlzy（廖子尧 Github地址：https://github.com/jeasonlzy0216 ,ikkong
+ * 作    者：jeasonlzy,ikkong
  * 版    本：1.0
  * 创建日期：2016/5/19
  * 描    述：
  * 修订历史：保留图片预览，去除其他代码
  * ================================================
  */
-public class ImagePreviewActivity extends ImagePreviewBaseActivity implements View.OnClickListener{
+public class KKImagePreviewActivity extends ImagePreviewBaseActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class ImagePreviewActivity extends ImagePreviewBaseActivity implements Vi
             @Override
             public void onPageSelected(int position) {
                 mCurrentPosition = position;
-                mTitleCount.setText(getString(R.string.preview_image_count, mCurrentPosition + 1, mImageItems.size()));
+                mTitleCount.setText(getString(R.string.preview_image_count, mCurrentPosition + 1, imgUrls.length));
             }
         });
         findViewById(R.id.btn_back).setOnClickListener(this);
@@ -67,5 +69,12 @@ public class ImagePreviewActivity extends ImagePreviewBaseActivity implements Vi
                 content.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             }
         }
+    }
+    
+    public static void goPreview(Context context,int currentPos,String... urls){
+        Intent intent = new Intent(context, KKImagePreviewActivity.class);
+        intent.putExtra(KKImagePreviewActivity.SELECTED_IMAGE_POSITION,currentPos);
+        intent.putExtra(KKImagePreviewActivity.EXTRA_IMAGE_URLS,urls);
+        context.startActivity(intent);
     }
 }

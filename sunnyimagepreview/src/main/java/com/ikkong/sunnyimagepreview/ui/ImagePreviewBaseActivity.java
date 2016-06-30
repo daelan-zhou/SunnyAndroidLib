@@ -9,14 +9,11 @@ import android.widget.TextView;
 import com.ikkong.sunnyimagepreview.R;
 import com.ikkong.sunnyimagepreview.Utils;
 import com.ikkong.sunnyimagepreview.adapter.ImagePageAdapter;
-import com.ikkong.sunnyimagepreview.bean.ImageItem;
 import com.ikkong.sunnyimagepreview.view.ViewPagerFixed;
-
-import java.util.ArrayList;
 
 /**
  * ================================================
- * 作    者：jeasonlzy（廖子尧 Github地址：https://github.com/jeasonlzy0216,ikkong
+ * 作    者：ikkong,jeasonlzy
  * 版    本：1.0
  * 创建日期：2016/5/19
  * 描    述：
@@ -25,9 +22,9 @@ import java.util.ArrayList;
  */
 public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
     public static final String SELECTED_IMAGE_POSITION = "SELECTED_IMAGE_POSITION";
-    public static final String EXTRA_IMAGE_ITEMS = "EXTRA_IMAGE_ITEMS";
+    public static final String EXTRA_IMAGE_URLS = "EXTRA_IMAGE_URLS";
 
-    protected ArrayList<ImageItem> mImageItems;      //跳转进ImagePreviewFragment的图片文件夹
+    protected String[] imgUrls;                     //跳转进ImagePreviewFragment的图片
     protected int mCurrentPosition = 0;              //跳转进ImagePreviewFragment时的序号，第几个图片
     protected TextView mTitleCount;                  //显示当前图片的位置  例如  5/31
     protected View content;
@@ -41,7 +38,7 @@ public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
         setContentView(R.layout.activity_image_preview);
 
         mCurrentPosition = getIntent().getIntExtra(SELECTED_IMAGE_POSITION, 0);
-        mImageItems = (ArrayList<ImageItem>) getIntent().getSerializableExtra(EXTRA_IMAGE_ITEMS);
+        imgUrls = getIntent().getStringArrayExtra(EXTRA_IMAGE_URLS);
 
         //初始化控件
         content = findViewById(R.id.content);
@@ -57,7 +54,7 @@ public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
         mTitleCount = (TextView) findViewById(R.id.tv_des);
 
         mViewPager = (ViewPagerFixed) findViewById(R.id.viewpager);
-        mAdapter = new ImagePageAdapter(this, mImageItems);
+        mAdapter = new ImagePageAdapter(this, imgUrls);
         mAdapter.setPhotoViewClickListener(new ImagePageAdapter.PhotoViewClickListener() {
             @Override
             public void OnPhotoTapListener(View view, float v, float v1) {
@@ -68,7 +65,7 @@ public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
         mViewPager.setCurrentItem(mCurrentPosition, false);
 
         //初始化当前页面的状态
-        mTitleCount.setText(getString(R.string.preview_image_count, mCurrentPosition + 1, mImageItems.size()));
+        mTitleCount.setText(getString(R.string.preview_image_count, mCurrentPosition + 1, imgUrls.length));
     }
 
     /** 单击时，隐藏头和尾 */
