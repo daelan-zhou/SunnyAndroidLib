@@ -1,1 +1,1 @@
-include ':app', ':sunnylibrary', ':sunnyimagepreview'
+include ':app', ':sunnylibrary', ':imagepreview', ':log2file'
