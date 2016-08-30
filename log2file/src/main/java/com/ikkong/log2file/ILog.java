@@ -23,7 +23,10 @@ public class ILog {
 	public static String logFileName;
 	public static Logger gLogger;
 	
-	static{
+	public ILog() {
+	}
+	
+	public static void init(){
 		if(saveLog) {
 			final LogConfigurator logConfigurator = new LogConfigurator();
 			logFileName = "log_" + imei + "_" +
@@ -39,9 +42,6 @@ public class ILog {
 			//gLogger = Logger.getLogger(this.getClass());
 			gLogger = Logger.getLogger(LOG_TAG);
 		}
-    }
-
-	public ILog() {
 	}
 
 	public static final void analytics(String log) {

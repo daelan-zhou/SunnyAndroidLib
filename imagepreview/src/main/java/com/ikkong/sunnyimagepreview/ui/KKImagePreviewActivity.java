@@ -70,7 +70,13 @@ public class KKImagePreviewActivity extends ImagePreviewBaseActivity implements 
             }
         }
     }
-    
+
+    /**
+     * 图片预览
+     * @param context
+     * @param currentPos 当前图片的位置，即第几个
+     * @param urls 图片路径，支持网络图片和本地图片
+     */
     public static void goPreview(Context context,int currentPos,String... urls){
         Intent intent = new Intent(context, KKImagePreviewActivity.class);
         intent.putExtra(KKImagePreviewActivity.SELECTED_IMAGE_POSITION,currentPos);
