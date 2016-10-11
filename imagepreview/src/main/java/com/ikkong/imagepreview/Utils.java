@@ -1,4 +1,4 @@
-package com.ikkong.sunnyimagepreview;
+package com.ikkong.imagepreview;
 
 import android.app.Activity;
 import android.content.Context;

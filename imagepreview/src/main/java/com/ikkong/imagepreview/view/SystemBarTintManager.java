@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ikkong.sunnyimagepreview.view;
+package com.ikkong.imagepreview.view;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

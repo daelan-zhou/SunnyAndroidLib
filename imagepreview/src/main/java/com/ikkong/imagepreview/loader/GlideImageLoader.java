@@ -1,4 +1,4 @@
-package com.ikkong.sunnyimagepreview.loader;
+package com.ikkong.imagepreview.loader;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.ikkong.sunnyimagepreview.R;
+import com.ikkong.imagepreview.R;
 
 import java.io.File;
 

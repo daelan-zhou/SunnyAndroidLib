@@ -1,4 +1,4 @@
-package com.ikkong.sunnyimagepreview.ui;
+package com.ikkong.imagepreview.ui;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ikkong.sunnyimagepreview.R;
-import com.ikkong.sunnyimagepreview.Utils;
-import com.ikkong.sunnyimagepreview.adapter.ImagePageAdapter;
-import com.ikkong.sunnyimagepreview.view.ViewPagerFixed;
+import com.ikkong.imagepreview.R;
+import com.ikkong.imagepreview.Utils;
+import com.ikkong.imagepreview.adapter.ImagePageAdapter;
+import com.ikkong.imagepreview.view.ViewPagerFixed;
 
 /**
  * ================================================

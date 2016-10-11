@@ -5,7 +5,7 @@
 ` compile 'com.ikkong:sunnylibrary:1.0.7' `
 ##图片预览
 ###build.gradle中添加：
-` compile 'com.ikkong:imagepreview:1.0.3' `
+` compile 'com.ikkong:imagepreview:1.0.7' `
 
 * 使用方法
     ` KKImagePreviewActivity.goPreview(this,1,"http://x.cn/a.jpg","http://x.cn/b.jpg"); `

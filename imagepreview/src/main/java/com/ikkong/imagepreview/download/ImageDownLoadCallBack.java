@@ -1,4 +1,4 @@
-package com.ikkong.sunnyimagepreview.download;
+package com.ikkong.imagepreview.download;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package com.ikkong.sunnyimagepreview.ui;
+package com.ikkong.imagepreview.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
-import com.ikkong.sunnyimagepreview.R;
-import com.ikkong.sunnyimagepreview.Utils;
-import com.ikkong.sunnyimagepreview.download.DownLoadHelper;
-import com.ikkong.sunnyimagepreview.download.ImageDownLoadCallBack;
+import com.ikkong.imagepreview.R;
+import com.ikkong.imagepreview.Utils;
+import com.ikkong.imagepreview.download.DownLoadHelper;
+import com.ikkong.imagepreview.download.ImageDownLoadCallBack;
 
 import java.io.File;
 

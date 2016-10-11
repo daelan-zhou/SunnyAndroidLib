@@ -1,4 +1,4 @@
-package com.ikkong.sunnyimagepreview.view;
+package com.ikkong.imagepreview.view;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

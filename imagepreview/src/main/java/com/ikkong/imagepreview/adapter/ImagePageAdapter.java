@@ -1,4 +1,4 @@
-package com.ikkong.sunnyimagepreview.adapter;
+package com.ikkong.imagepreview.adapter;
 
 import android.app.Activity;
 import android.support.v4.view.PagerAdapter;
@@ -6,8 +6,8 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ikkong.sunnyimagepreview.Utils;
-import com.ikkong.sunnyimagepreview.loader.GlideImageLoader;
+import com.ikkong.imagepreview.Utils;
+import com.ikkong.imagepreview.loader.GlideImageLoader;
 
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;

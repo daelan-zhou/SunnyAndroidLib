@@ -1,4 +1,4 @@
-package com.ikkong.sunnyimagepreview.ui;
+package com.ikkong.imagepreview.ui;
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.ikkong.sunnyimagepreview.R;
-import com.ikkong.sunnyimagepreview.view.SystemBarTintManager;
+import com.ikkong.imagepreview.R;
+import com.ikkong.imagepreview.view.SystemBarTintManager;
 
 
 /**

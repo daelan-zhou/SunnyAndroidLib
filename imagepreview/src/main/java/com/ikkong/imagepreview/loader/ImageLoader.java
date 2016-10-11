@@ -1,4 +1,4 @@
-package com.ikkong.sunnyimagepreview.loader;
+package com.ikkong.imagepreview.loader;
 
 import android.app.Activity;
 import android.widget.ImageView;
