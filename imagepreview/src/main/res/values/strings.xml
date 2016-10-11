@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ImagePreView</string>
     <string name="preview_image_count">%1$s/%2$s</string>
+    <string name="action_save">保存到本地</string>
 </resources>

@@ -5,10 +5,19 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import com.ikkong.sunnyimagepreview.R;
+import com.ikkong.sunnyimagepreview.Utils;
+import com.ikkong.sunnyimagepreview.download.DownLoadHelper;
+import com.ikkong.sunnyimagepreview.download.ImageDownLoadCallBack;
+
+import java.io.File;
 
 
 /**
@@ -33,6 +42,47 @@ public class KKImagePreviewActivity extends ImagePreviewBaseActivity implements 
             }
         });
         findViewById(R.id.btn_back).setOnClickListener(this);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.action_save) {
+                    String url = imgUrls[mCurrentPosition];
+                    if(!url.startsWith("http")){
+                        Toast.makeText(KKImagePreviewActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                    DownLoadHelper.downLoad(KKImagePreviewActivity.this, url, new ImageDownLoadCallBack() {
+                        @Override
+                        public void onDownLoadSuccess(File file) {
+                            final String savePath = Utils.getDownloadImgPath();
+                            final boolean success = Utils.copyFile(file,savePath);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(KKImagePreviewActivity.this,success?
+                                            ("保存成功:"+savePath):"保存失败",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            
+                        }
+
+                        @Override
+                        public void onDownLoadFailed() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(KKImagePreviewActivity.this,"保存失败",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            
+                        }
+                    });
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -83,4 +133,11 @@ public class KKImagePreviewActivity extends ImagePreviewBaseActivity implements 
         intent.putExtra(KKImagePreviewActivity.EXTRA_IMAGE_URLS,urls);
         context.startActivity(intent);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.preview_menu, menu);
+        return true;
+    }
+    
 }

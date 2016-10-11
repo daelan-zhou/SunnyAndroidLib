@@ -5,6 +5,12 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+
 /**
  * ================================================
  * 作    者：jeasonlzy（廖子尧 Github地址：https://github.com/jeasonlzy0216
@@ -54,5 +60,64 @@ public class Utils {
         DisplayMetrics displaysMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displaysMetrics);
         return displaysMetrics;
+    }
+
+    ///////////////////////复制文件//////////////////////////////
+    /**
+     * 复制单个文件 
+     * @param old 
+     * @param newPath String 复制后路径 如：f:/fqf.txt 
+     * @return boolean
+     */
+    public static boolean copyFile(File old, String newPath) {
+        boolean isok = true;
+        try {
+            int bytesum = 0;
+            int byteread = 0;
+            if (old.exists()) { //文件存在时 
+                InputStream inStream = new FileInputStream(old); //读入原文件 
+                FileOutputStream fs = new FileOutputStream(newPath);
+                byte[] buffer = new byte[1024];
+                while ( (byteread = inStream.read(buffer)) != -1) {
+                    bytesum += byteread; //字节数 文件大小 
+                    fs.write(buffer, 0, byteread);
+                }
+                fs.flush();
+                fs.close();
+                inStream.close();
+            }
+            else
+            {
+                isok = false;
+            }
+        }
+        catch (Exception e) {
+            // System.out.println("复制单个文件操作出错"); 
+            // e.printStackTrace(); 
+            isok = false;
+        }
+        return isok;
+
+    }
+
+    /**
+     * Create a File for saving an img
+     */
+    public static String getDownloadImgPath() {
+        File mediaStorageDir = null;
+        try {
+            mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "ImagePreviewDownload");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 如果不存在 就创建文件夹
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new java.util.Date());
+        return mediaStorageDir.getPath() + File.separator + timeStamp + ".jpg";
     }
 }

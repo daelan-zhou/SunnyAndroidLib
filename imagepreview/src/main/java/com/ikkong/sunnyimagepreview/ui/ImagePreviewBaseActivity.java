@@ -2,6 +2,7 @@ package com.ikkong.sunnyimagepreview.ui;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,11 +32,16 @@ public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
     protected View topBar;
     protected ViewPagerFixed mViewPager;
     protected ImagePageAdapter mAdapter;
+    protected Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_preview);
+
+        toolbar = (Toolbar) findViewById(R.id.top_bar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
 
         mCurrentPosition = getIntent().getIntExtra(SELECTED_IMAGE_POSITION, 0);
         imgUrls = getIntent().getStringArrayExtra(EXTRA_IMAGE_URLS);
