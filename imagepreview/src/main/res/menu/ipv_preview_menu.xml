@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <item android:id="@+id/action_save"
-        android:title="@string/action_save"
+    <item android:id="@+id/ipv_action_save"
+        android:title="@string/ipv_action_save"
         android:orderInCategory="80"
-        android:icon="@mipmap/ic_save"
+        android:icon="@mipmap/ipv_ic_save"
         app:showAsAction="ifRoom" />
 
 </menu>

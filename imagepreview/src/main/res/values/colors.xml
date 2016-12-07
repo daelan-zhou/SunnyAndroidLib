@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="status_bar">#303135</color>
-    <color name="theme_body">#cc22292c</color>
-    <color name="transparent">#00000000</color>
+    <color name="ipv_status_bar">#303135</color>
+    <color name="ipv_theme_body">#cc22292c</color>
+    <color name="ipv_transparent">#00000000</color>
 </resources>

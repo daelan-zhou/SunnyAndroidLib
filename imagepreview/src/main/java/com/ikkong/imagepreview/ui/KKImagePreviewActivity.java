@@ -38,15 +38,15 @@ public class KKImagePreviewActivity extends ImagePreviewBaseActivity implements 
             @Override
             public void onPageSelected(int position) {
                 mCurrentPosition = position;
-                mTitleCount.setText(getString(R.string.preview_image_count, mCurrentPosition + 1, imgUrls.length));
+                mTitleCount.setText(getString(R.string.ipv_preview_image_count, mCurrentPosition + 1, imgUrls.length));
             }
         });
-        findViewById(R.id.btn_back).setOnClickListener(this);
+        findViewById(R.id.ipv_btn_back).setOnClickListener(this);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int id = item.getItemId();
-                if (id == R.id.action_save) {
+                if (id == R.id.ipv_action_save) {
                     String url = imgUrls[mCurrentPosition];
                     if(!url.startsWith("http")){
                         Toast.makeText(KKImagePreviewActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
@@ -88,7 +88,7 @@ public class KKImagePreviewActivity extends ImagePreviewBaseActivity implements 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.btn_back) {
+        if (id == R.id.ipv_btn_back) {
             finish();
         }
     }
@@ -103,17 +103,17 @@ public class KKImagePreviewActivity extends ImagePreviewBaseActivity implements 
     @Override
     public void onImageSingleTap() {
         if (topBar.getVisibility() == View.VISIBLE) {
-            topBar.setAnimation(AnimationUtils.loadAnimation(this, R.anim.top_out));
+            topBar.setAnimation(AnimationUtils.loadAnimation(this, R.anim.ipv_top_out));
             topBar.setVisibility(View.GONE);
-            tintManager.setStatusBarTintResource(R.color.transparent);//通知栏所需颜色
+            tintManager.setStatusBarTintResource(R.color.ipv_transparent);//通知栏所需颜色
             //给最外层布局加上这个属性表示，Activity全屏显示，且状态栏被隐藏覆盖掉。
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
                 content.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
             }
         } else {
-            topBar.setAnimation(AnimationUtils.loadAnimation(this, R.anim.top_in));
+            topBar.setAnimation(AnimationUtils.loadAnimation(this, R.anim.ipv_top_in));
             topBar.setVisibility(View.VISIBLE);
-            tintManager.setStatusBarTintResource(R.color.status_bar);//通知栏所需颜色
+            tintManager.setStatusBarTintResource(R.color.ipv_status_bar);//通知栏所需颜色
             //Activity全屏显示，但状态栏不会被隐藏覆盖，状态栏依然可见，Activity顶端布局部分会被状态遮住
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
                 content.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -136,7 +136,7 @@ public class KKImagePreviewActivity extends ImagePreviewBaseActivity implements 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.preview_menu, menu);
+        getMenuInflater().inflate(R.menu.ipv_preview_menu, menu);
         return true;
     }
     

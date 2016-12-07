@@ -37,9 +37,9 @@ public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_preview);
+        setContentView(R.layout.ipv_activity_image_preview);
 
-        toolbar = (Toolbar) findViewById(R.id.top_bar);
+        toolbar = (Toolbar) findViewById(R.id.ipv_top_bar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
@@ -50,16 +50,16 @@ public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
         content = findViewById(R.id.content);
 
         //因为状态栏透明后，布局整体会上移，所以给头部加上状态栏的margin值，保证头部不会被覆盖
-        topBar = findViewById(R.id.top_bar);
+        topBar = findViewById(R.id.ipv_top_bar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) topBar.getLayoutParams();
             params.topMargin = Utils.getStatusHeight(this);
             topBar.setLayoutParams(params);
         }
 
-        mTitleCount = (TextView) findViewById(R.id.tv_des);
+        mTitleCount = (TextView) findViewById(R.id.ipv_tv_des);
 
-        mViewPager = (ViewPagerFixed) findViewById(R.id.viewpager);
+        mViewPager = (ViewPagerFixed) findViewById(R.id.ipv_viewpager);
         mAdapter = new ImagePageAdapter(this, imgUrls);
         mAdapter.setPhotoViewClickListener(new ImagePageAdapter.PhotoViewClickListener() {
             @Override
@@ -71,7 +71,7 @@ public abstract class ImagePreviewBaseActivity extends ImageBaseActivity {
         mViewPager.setCurrentItem(mCurrentPosition, false);
 
         //初始化当前页面的状态
-        mTitleCount.setText(getString(R.string.preview_image_count, mCurrentPosition + 1, imgUrls.length));
+        mTitleCount.setText(getString(R.string.ipv_preview_image_count, mCurrentPosition + 1, imgUrls.length));
     }
 
     /** 单击时，隐藏头和尾 */
