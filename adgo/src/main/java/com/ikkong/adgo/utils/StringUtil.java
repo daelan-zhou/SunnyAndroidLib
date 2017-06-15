@@ -278,4 +278,20 @@ public class StringUtil {
         }
         return list.toArray(new String[0]);
     }
+
+    /**
+     * 密码强度检测
+     * @param pass
+     * @return 1弱 2中 3强 4比强还强
+     */
+    public static int checkPwdStrong(String pass){
+        int modes = 0;
+        //正则表达式验证符合要求的
+        if (pass==null || pass.length() < 1) return modes;
+        if (pass.matches(".*\\d+.*")) modes++; //数字
+        if (Pattern.compile(".*[a-z]+.*").matcher(pass).matches()) modes++; //小写
+        if (Pattern.compile(".*[A-Z]+.*").matcher(pass).matches()) modes++; //大写 
+        if (Pattern.compile(".*(?=[\\x21-\\x7e]+)[^A-Za-z0-9]+.*").matcher(pass).matches()) modes++; //特殊符号 
+        return modes;
+    }
 }
