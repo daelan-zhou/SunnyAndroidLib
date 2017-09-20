@@ -12,7 +12,7 @@
         app:centerView="@+id/take_photo_button"
         app:rightUpView="@+id/light_button">
 
-    <com.baidu.ocr.ui.camera.CameraView
+    <xin.dlong.ocr.ui.camera.CameraView
             android:id="@+id/camera_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
