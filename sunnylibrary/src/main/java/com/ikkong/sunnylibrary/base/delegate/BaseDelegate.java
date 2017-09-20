@@ -16,6 +16,10 @@ public abstract class BaseDelegate extends AppDelegate {
     @Override
     public void toast(CharSequence msg) {
         if (!TextUtils.isEmpty(msg)) {
+//            Snackbar snackbar = Snackbar.make(rootView, msg, Snackbar.LENGTH_SHORT);
+//            View view = snackbar.getView();
+//            view.setBackgroundColor(getActivity().getResources().getColor(R.color.main_color));
+//            snackbar.show();
             Snackbar.make(rootView, msg, Snackbar.LENGTH_SHORT).show();
         }
     }

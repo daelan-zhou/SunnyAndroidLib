@@ -19,6 +19,6 @@
 
     <drawable name="progress_bar_bg">#80FFFFFF</drawable>
     <drawable name="sr_primary">@color/main_color</drawable>
-    <drawable name="transparent">@color/transparent</drawable>
+    <drawable name="transparent">@color/ipv_transparent</drawable>
 
 </resources>
