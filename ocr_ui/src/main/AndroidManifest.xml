@@ -10,7 +10,6 @@
     <application android:allowBackup="true" android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:vmSafeMode="true"
-        android:theme="@style/AppTheme"
         android:supportsRtl="true">
 
         <activity android:name="xin.dlong.ocr.ui.camera.CameraActivity"
