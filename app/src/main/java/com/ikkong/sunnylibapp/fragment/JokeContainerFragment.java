@@ -36,7 +36,7 @@ public class JokeContainerFragment extends BaseMainFragment<JokeContainerDelegat
                 .add("趣图", JokeListFragment.class, bi)
                 .create());
 
-        viewPager = viewDelegate.get(R.id.viewpager);
+        viewPager = viewDelegate.get(R.id.ipv_viewpager);
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = viewDelegate.get(R.id.viewpagertab);

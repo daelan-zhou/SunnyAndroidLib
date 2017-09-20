@@ -54,22 +54,21 @@
                 style="@style/MenuItemTextViewStyle"
                 android:text="@string/menu_item_text3" />
         </LinearLayout>
-        <!--
-                
-        
-                <LinearLayout
-                    android:id="@+id/menu_item_tag4"
-                    style="@style/MenuItemLayoutStyle">
-        
-                    <ImageView
-                        style="@style/MenuItemImageViewStyle"
-                        android:background="@mipmap/icon_slid_menu_4"
-                        android:contentDescription="@null" />
-        
-                    <TextView
-                        style="@style/MenuItemTextViewStyle"
-                        android:text="@string/menu_item_text4" />
-                </LinearLayout>-->
+
+
+        <LinearLayout
+            android:id="@+id/menu_item_tag4"
+            style="@style/MenuItemLayoutStyle">
+
+            <ImageView
+                style="@style/MenuItemImageViewStyle"
+                android:background="@mipmap/icon_slid_menu_1"
+                android:contentDescription="@null" />
+
+            <TextView
+                style="@style/MenuItemTextViewStyle"
+                android:text="@string/menu_item_text4" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

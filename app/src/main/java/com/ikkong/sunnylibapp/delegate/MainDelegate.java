@@ -25,7 +25,7 @@ public class MainDelegate extends BaseDelegate {
 
     @Override
     public Toolbar getToolbar() {
-        mToolbar = get(R.id.toolbar);
+        mToolbar = get(R.id.ipv_toolbar);
         if (mToolbar == null) {
             throw new NullPointerException("Must include Toolbar and define @+id/toolbar." +
                     " You can get @layout/base_toolbar");

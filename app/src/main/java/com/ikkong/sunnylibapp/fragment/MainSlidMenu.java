@@ -9,6 +9,7 @@ import com.ikkong.sunnylibapp.delegate.MainSlidMenuDelegate;
 import com.ikkong.sunnylibrary.model.Event;
 import com.kymjs.frame.presenter.FragmentPresenter;
 import com.kymjs.rxvolley.rx.RxBus;
+import com.kymjs.rxvolley.toolbox.Loger;
 
 
 /**
@@ -29,8 +30,8 @@ public class MainSlidMenu extends FragmentPresenter<MainSlidMenuDelegate> implem
         viewDelegate.setOnClickListener(this,
                 R.id.menu_item_tag1,
                 R.id.menu_item_tag2,
-                R.id.menu_item_tag3
-//                R.id.menu_item_tag4,
+                R.id.menu_item_tag3,
+                R.id.menu_item_tag4
                 );
     }
 
@@ -41,6 +42,7 @@ public class MainSlidMenu extends FragmentPresenter<MainSlidMenuDelegate> implem
 
     @Override
     public void onClick(View v) {
+        Loger.debug("=====MainSlidMenu=onClick====");
         Event event = new Event();
         event.setAction(MainActivity.MENU_CLICK_EVEN);
         event.setObject(v);

@@ -1,1 +1,1 @@
-include ':app', ':sunnylibrary', ':imagepreview', ':log2file'
+include ':app', ':sunnylibrary', ':imagepreview', ':log2file', ':adgo', ':calendar', ':ocr_ui'

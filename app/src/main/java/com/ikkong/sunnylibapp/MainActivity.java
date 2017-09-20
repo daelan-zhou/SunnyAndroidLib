@@ -1,22 +1,20 @@
 package com.ikkong.sunnylibapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.ikkong.sunnyimagepreview.bean.ImageItem;
-import com.ikkong.sunnyimagepreview.ui.ImagePreviewActivity;
+import com.ikkong.imagepreview.ui.KKImagePreviewActivity;
 import com.ikkong.sunnylibapp.delegate.MainDelegate;
 import com.ikkong.sunnylibapp.fragment.HotwxListFragment;
 import com.ikkong.sunnylibapp.fragment.JokeContainerFragment;
+import com.ikkong.sunnylibapp.fragment.WebFragment;
 import com.ikkong.sunnylibrary.base.BaseFrameActivity;
 import com.ikkong.sunnylibrary.base.BaseMainFragment;
 import com.ikkong.sunnylibrary.model.Event;
 import com.kymjs.rxvolley.rx.RxBus;
-
-import java.util.ArrayList;
+import com.kymjs.rxvolley.toolbox.Loger;
 
 import rx.Subscription;
 import rx.functions.Action1;
@@ -28,7 +26,7 @@ public class MainActivity extends BaseFrameActivity<MainDelegate> {
     private BaseMainFragment currentFragment; //当前内容所显示的Fragment
     private BaseMainFragment content1 = new HotwxListFragment();
     private BaseMainFragment content2 = new JokeContainerFragment();
-//    private BaseMainFragment content3 = new TopListFragment();
+    private BaseMainFragment content3 = new WebFragment();
 
     private Subscription rxBusSubscript;
 
@@ -93,6 +91,7 @@ public class MainActivity extends BaseFrameActivity<MainDelegate> {
                 .subscribe(new Action1<Event>() {
                     @Override
                     public void call(Event event) {
+                        Loger.debug("==接收到===MainSlidMenu=onClick====");
                         changeContent(event);
                     }
                 }, new Action1<Throwable>() {
@@ -125,11 +124,10 @@ public class MainActivity extends BaseFrameActivity<MainDelegate> {
                 changeFragment(content2);
                 break;
             case R.id.menu_item_tag3:
-                Intent intent = new Intent(this, ImagePreviewActivity.class);
-                intent.putExtra(ImagePreviewActivity.SELECTED_IMAGE_POSITION,2);
-                ArrayList<ImageItem> list = getData();
-                intent.putExtra(ImagePreviewActivity.EXTRA_IMAGE_ITEMS,list);
-                startActivity(intent);
+                KKImagePreviewActivity.goPreview(this,1,getData());
+                break;
+            case R.id.menu_item_tag4:
+                changeFragment(content3);
                 break;
             default:
                 break;
@@ -138,13 +136,10 @@ public class MainActivity extends BaseFrameActivity<MainDelegate> {
         onMenuSelected(view);
     }
 
-    private ArrayList<ImageItem> getData() {
-        ArrayList<ImageItem> list = new ArrayList<>();
-        list.add(new ImageItem(imageUrls1[0],System.currentTimeMillis()));
-        list.add(new ImageItem(imageUrls1[1],System.currentTimeMillis()));
-        list.add(new ImageItem(imageUrls1[2],System.currentTimeMillis()));
-        list.add(new ImageItem(imageUrls1[3],System.currentTimeMillis()));
-        return list;
+    private String[] getData() {
+        return new String[]{
+                imageUrls1[0],imageUrls1[1],imageUrls1[2],imageUrls1[3]
+        };
     }
 
     private final static String[] imageUrls1 = new String[]{
@@ -157,6 +152,8 @@ public class MainActivity extends BaseFrameActivity<MainDelegate> {
     private void onMenuSelected(View view) {
         viewDelegate.get(R.id.menu_item_tag1).setBackgroundResource(R.drawable.selector_text_bg);
         viewDelegate.get(R.id.menu_item_tag2).setBackgroundResource(R.drawable.selector_text_bg);
+        viewDelegate.get(R.id.menu_item_tag3).setBackgroundResource(R.drawable.selector_text_bg);
+        viewDelegate.get(R.id.menu_item_tag4).setBackgroundResource(R.drawable.selector_text_bg);
         view.setBackgroundResource(R.drawable.bg_text_press);
     }
 }
